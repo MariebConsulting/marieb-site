@@ -16,9 +16,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ===================== CONFIG ===================== */
-const MARIEB_LOGO_SRC = '/marieb-logo.png'; // put your logo here (public/)
-const WEB_APP_URL = 'YOUR_WEB_APP_URL_HERE'; // <-- replace with Apps Script Web App URL
-
+// Use inverted (white) logo only, with WebP first and PNG fallback via <picture>
+const MARIEB_LOGO_SRC_1X_WEBP = '/brand/marieb-logo-inverted-256.webp';
+const MARIEB_LOGO_SRC_2X_WEBP = '/brand/marieb-logo-inverted-512.webp';
+const MARIEB_LOGO_SRC_3X_WEBP = '/brand/marieb-logo-inverted-1024.webp';
+const MARIEB_LOGO_SRC_1X_PNG  = '/brand/marieb-logo-inverted-256.png';
+const MARIEB_LOGO_SRC_2X_PNG  = '/brand/marieb-logo-inverted-512.png';
+const MARIEB_LOGO_SRC_3X_PNG  = '/brand/marieb-logo-inverted-1024.png';
 /* ===================== UI PRIMITIVES ===================== */
 const Button = ({ children, variant = 'primary', size = 'md', className = '', ...props }) => {
   const base =
@@ -64,12 +68,24 @@ const CardContent = ({ children, className = '', ...props }) => (
 
 /* ===================== BRAND ===================== */
 const MariebLogo = () => (
-  <div className="flex items-center space-x-3 text-slate-200" data-testid="brand">
-    <img src={MARIEB_LOGO_SRC} alt="Marieb Consulting" className="h-10 w-auto object-contain" onError={(e)=>{ (e.target as HTMLImageElement).style.display='none' }} />
-    {/* Fallback text if image missing */}
-    <noscript>MARIEB</noscript>
-  </div>
+  <a href="/" className="flex items-center" aria-label="Marieb Consulting home">
+    <picture>
+      <source
+        srcSet={`${MARIEB_LOGO_SRC_1X_WEBP} 1x, ${MARIEB_LOGO_SRC_2X_WEBP} 2x, ${MARIEB_LOGO_SRC_3X_WEBP} 3x`}
+        type="image/webp"
+      />
+      <img
+        src={MARIEB_LOGO_SRC_1X_PNG}
+        srcSet={`${MARIEB_LOGO_SRC_2X_PNG} 2x, ${MARIEB_LOGO_SRC_3X_PNG} 3x`}
+        alt="Marieb Consulting"
+        className="h-10 w-auto"   /* adjust to taste: h-8 | h-10 | h-12 */
+        loading="eager"
+        decoding="async"
+      />
+    </picture>
+  </a>
 );
+
 
 /* ===================== WORKFLOW ICONS ===================== */
 function WorkflowIcon({ type }:{type:string}){
