@@ -17,12 +17,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 /* ===================== CONFIG ===================== */
 // Use inverted (white) logo only, with WebP first and PNG fallback via <picture>
-const MARIEB_LOGO_SRC_1X_WEBP = '/brand/marieb-logo-inverted-256.webp';
-const MARIEB_LOGO_SRC_2X_WEBP = '/brand/marieb-logo-inverted-512.webp';
-const MARIEB_LOGO_SRC_3X_WEBP = '/brand/marieb-logo-inverted-1024.webp';
-const MARIEB_LOGO_SRC_1X_PNG  = '/brand/marieb-logo-inverted-256.png';
-const MARIEB_LOGO_SRC_2X_PNG  = '/brand/marieb-logo-inverted-512.png';
-const MARIEB_LOGO_SRC_3X_PNG  = '/brand/marieb-logo-inverted-1024.png';
+const MARIEB_LOGO_SRC = 'BRAND/MARIE-LOGO-HEADER.PNG';
 /* ===================== UI PRIMITIVES ===================== */
 const Button = ({ children, variant = 'primary', size = 'md', className = '', ...props }) => {
   const base =
