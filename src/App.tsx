@@ -17,7 +17,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 /* ===================== CONFIG ===================== */
 // Use inverted (white) logo only, with WebP first and PNG fallback via <picture>
-const MARIEB_LOGO_SRC = 'BRAND/MARIE-LOGO-HEADER.PNG';
+const MARIEB_LOGO_SRC = '/brand/marieb-logo-header.png'; // exact name in public/brand
+
 /* ===================== UI PRIMITIVES ===================== */
 const Button = ({ children, variant = 'primary', size = 'md', className = '', ...props }) => {
   const base =
@@ -64,20 +65,23 @@ const CardContent = ({ children, className = '', ...props }) => (
 /* ===================== BRAND ===================== */
 const MariebLogo = () => (
   <a href="/" className="flex items-center" aria-label="Marieb Consulting home">
-    <picture>
-      <source
-        srcSet={`${MARIEB_LOGO_SRC_1X_WEBP} 1x, ${MARIEB_LOGO_SRC_2X_WEBP} 2x, ${MARIEB_LOGO_SRC_3X_WEBP} 3x`}
-        type="image/webp"
-      />
-      <img
-        src={MARIEB_LOGO_SRC_1X_PNG}
-        srcSet={`${MARIEB_LOGO_SRC_2X_PNG} 2x, ${MARIEB_LOGO_SRC_3X_PNG} 3x`}
-        alt="Marieb Consulting"
-        className="h-10 w-auto"   /* adjust to taste: h-8 | h-10 | h-12 */
-        loading="eager"
-        decoding="async"
-      />
-    </picture>
+    <img
+      src="/brand/marieb-logo-header.png"
+      srcSet="/brand/marieb-logo-header-2x.png 2x, /brand/marieb-logo-header-3x.png 3x"
+      alt="Marieb Consulting"
+      className="h-12 md:h-14 lg:h-16 w-auto object-contain"
+      loading="eager"
+      decoding="async"
+      onError={(e) => {
+        // Hide the broken icon and show a text fallback if something goes wrong
+        const img = e.currentTarget;
+        img.style.display = 'none';
+        const fallback = document.createElement('span');
+        fallback.textContent = 'MARIEB';
+        fallback.className = 'text-white font-semibold text-xl';
+        img.parentElement?.appendChild(fallback);
+      }}
+    />
   </a>
 );
 
