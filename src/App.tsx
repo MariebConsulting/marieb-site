@@ -1086,7 +1086,7 @@ export default function MariebDarkSiteV8() {
               </h3>
               <p className="text-slate-300 leading-relaxed">
                 Our senior business-intelligence engineer leads a team of data architects and
-                software developers who work directly with emerging technologies and personnel from
+                software developers who work directly with emerging technologies from
                 companies such as OpenAI, Google (Gemini), and xAI (Grok).
               </p>
               <p className="text-slate-300 leading-relaxed mt-3">
