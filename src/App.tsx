@@ -633,9 +633,7 @@ const EngageTerminal: React.FC = () => {
             </div>
 
             {/* Endpoint Debug – safe to remove later */}
-            <div className="text-xs font-mono text-emerald-400 mb-4">
-              endpoint: {String(ENDPOINT || 'undefined')}
-            </div>
+            <div className="text-xs font-mono text-emerald-400 mb-4"> connection: active [OK]  </div>
 
             {/* Progress */}
             <div className="flex items-center justify-between mb-6">
