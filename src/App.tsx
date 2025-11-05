@@ -1,4 +1,4 @@
-/ src/App.tsx
+// src/App.tsx
 // Marieb Site – Dark Theme Full Integrated V8
 // One-page dark theme site with: Hero (terminal cursor), Recent Highlights,
 // Workflow Studios, Solutions, Behind the Flow, Pricing, and the Engage Terminal
