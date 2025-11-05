@@ -1,13 +1,8 @@
-// src/App.tsx
+/ src/App.tsx
 // Marieb Site – Dark Theme Full Integrated V8
 // One-page dark theme site with: Hero (terminal cursor), Recent Highlights,
-// Workflow Studios, Solutions, Behind the Flow, Pricing, and the Engage Terminal.
-// This version posts to Google Apps Script using URL-encoded data.
-
-// Requirements:
-// 1) At project root, create .env with:
-//    VITE_FORM_ENDPOINT="https://script.google.com/macros/s/AKfycb.../exec"
-// 2) Restart dev server after editing .env (npm run dev)
+// Workflow Studios, Solutions, Behind the Flow, Pricing, and the Engage Terminal
+// wired to Google Apps Script via URL-encoded POST.
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -43,7 +38,7 @@ const Button: React.FC<ButtonProps> = ({
   };
   const sizes: Record<string, string> = {
     sm: 'h-9 px-3 text-sm',
-    md: 'h-10 px-4 py-2 text-sm',
+    md: 'h-10 px-4 py-2',
     lg: 'h-11 px-6 py-3 text-base',
   };
   return (
@@ -219,7 +214,8 @@ const SOLUTIONS = [
   {
     id: 'support',
     title: 'Customer Support & Success',
-    summary: 'Knowledge bases, smart FAQs, and chat responses that stay on-brand and on-topic.',
+    summary:
+      'Knowledge bases, smart FAQs, and chat responses that stay on-brand and on-topic.',
     detail:
       'Summarize tickets, spot recurring issues, and draft proactive guidance. PoolBrain.ai logs insights so service and warranty teams get ahead of problems.',
     pillar: 'Service & Maintenance',
@@ -228,7 +224,8 @@ const SOLUTIONS = [
   {
     id: 'product',
     title: 'Product Management',
-    summary: 'Turn raw notes and field reports into clear insights, release notes, and training.',
+    summary:
+      'Turn raw notes and field reports into clear insights, release notes, and training.',
     detail:
       'Close the loop between field and factory. PoolBrain.ai correlates substrate, climate, and install feedback for better product decisions.',
     pillar: 'Construction & Engineering',
@@ -237,7 +234,8 @@ const SOLUTIONS = [
   {
     id: 'hr',
     title: 'Human Resources & Recruiting',
-    summary: 'Faster JDs, offers, onboarding, and culture communications with consistent tone.',
+    summary:
+      'Faster JDs, offers, onboarding, and culture communications with consistent tone.',
     detail:
       'Standardize hiring while preserving your voice. PoolBrain.ai helps align training and policy docs with how your teams actually operate.',
     pillar: 'Workforce & Training',
@@ -292,7 +290,9 @@ const SolutionsSection: React.FC = () => {
     const prefersReduced =
       window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      el.querySelectorAll('.reveal').forEach((n) => n.classList.add('opacity-100', 'translate-y-0'));
+      el.querySelectorAll('.reveal').forEach((n) =>
+        n.classList.add('opacity-100', 'translate-y-0'),
+      );
       return;
     }
     const io = new IntersectionObserver(
@@ -437,7 +437,6 @@ const PricingSection: React.FC = () => {
       cta: 'Book Workshop',
     },
   ];
-
   return (
     <section
       id="pricing"
@@ -521,7 +520,7 @@ const HeroCursor: React.FC = () => (
   </span>
 );
 
-/* ===================== ENGAGE TERMINAL (URL-ENCODED SUBMIT) ===================== */
+/* ===================== ENGAGE TERMINAL HELPERS ===================== */
 function validateEmail(v: string) {
   return /.+@.+\..+/.test(v);
 }
@@ -534,6 +533,32 @@ const StepDot: React.FC<{ active: boolean; done: boolean }> = ({ active, done })
   />
 );
 
+// Rotating diagnostics line + flicker
+const RotatingDiagnostics: React.FC = () => {
+  const [index, setIndex] = React.useState(0);
+  const phrases = [
+    'SIGNALFLOW: COHERENT [NOISE→SIGNAL RATIO OPTIMAL]',
+    'DOMAIN LINK: VERIFIED [INTEL STREAM ACTIVE]',
+    'TELEMETRY FEED: GREEN [SIGFLOW STABLE]',
+    'FIELD NODE: SYNCED [IN-FIELD AI™ OPERATIONAL]',
+    'LINK STATUS: NOMINAL [OPEN ECOSYSTEM MODE]',
+  ];
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % phrases.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="tracking-widest text-emerald-300/90 relative z-10 animate-[flicker_4s_infinite] transition-all duration-500">
+      {phrases[index]}
+    </span>
+  );
+};
+
+/* ===================== ENGAGE TERMINAL ===================== */
 const EngageTerminal: React.FC = () => {
   const [data, setData] = useState({
     name: '',
@@ -551,6 +576,13 @@ const EngageTerminal: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const steps = ['Intro', 'Company', 'Friction', 'Review'];
+
+  function next() {
+    if (validateStep()) setStep((s) => Math.min(s + 1, steps.length - 1));
+  }
+  function back() {
+    setStep((s) => Math.max(s - 1, 0));
+  }
 
   function validateStep() {
     const e: Record<string, string> = {};
@@ -570,21 +602,11 @@ const EngageTerminal: React.FC = () => {
     return Object.keys(e).length === 0;
   }
 
-  function next() {
-    if (validateStep()) setStep((s) => Math.min(s + 1, steps.length - 1));
-  }
-  function back() {
-    setStep((s) => Math.max(s - 1, 0));
-  }
-
-  // Fire-and-forget submit: avoids “Network error / Load failed” noise while
-  // Apps Script still writes the row to your sheet.
   async function submit() {
     if (!validateStep()) return;
     if (data.honey) return; // honeypot
-
     if (!ENDPOINT) {
-      alert('Endpoint is not configured. Add VITE_FORM_ENDPOINT to .env and rebuild.');
+      alert('Endpoint is not configured. Add VITE_FORM_ENDPOINT to .env.');
       return;
     }
 
@@ -598,19 +620,23 @@ const EngageTerminal: React.FC = () => {
       params.set('friction', data.friction);
       params.set('honeypot', data.honey);
 
-      await fetch(ENDPOINT, {
-        method: 'POST',
-        body: params,
-        mode: 'no-cors', // opaque response, but request is sent
-      });
+      const res = await fetch(ENDPOINT, { method: 'POST', body: params });
 
-      // If we got here, the browser accepted the request.
-      // Apps Script is already known to append rows, so treat as success.
-      setSubmitted(true);
+      let json: any = null;
+      try {
+        json = await res.json();
+      } catch {
+        json = { ok: res.ok, status: res.status };
+      }
+
+      if ((json && json.ok) || res.ok) {
+        setSubmitted(true);
+      } else {
+        throw new Error(json?.error || `Submit failed (HTTP ${res.status})`);
+      }
     } catch (err) {
-      console.error('Network or fetch error (POST may still have been sent):', err);
-      // Be optimistic, since we know the backend often succeeds even when the browser complains.
-      setSubmitted(true);
+      console.error('Submission error:', err);
+      alert('There was an issue submitting your info. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -625,15 +651,34 @@ const EngageTerminal: React.FC = () => {
         <Card className="bg-black/90 border-emerald-700/40 shadow-[inset_0_0_0_1px_rgba(16,185,129,0.05)]">
           <CardContent>
             {/* Terminal Header */}
-            <div className="font-mono text-emerald-300 text-xs flex items-center justify-between mb-4">
+            <div className="font-mono text-emerald-300 text-xs flex items-center justify-between mb-2">
               <span className="text-emerald-300/80">/root/marieb/engage</span>
               <span className="text-emerald-300/60">
                 _ session: {new Date().toLocaleDateString()}
               </span>
             </div>
 
-            {/* Endpoint Debug – safe to remove later */}
-            <div className="text-xs font-mono text-emerald-400 mb-4"> connection: active [OK]  </div>
+            {/* Connection Status with noise + diagnostics */}
+            <div className="relative text-xs font-mono text-emerald-400 mb-4 flex items-center gap-2 overflow-hidden rounded-sm bg-black/40 border border-emerald-700/40 px-2 py-1">
+              {/* Pulsing LED */}
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-90"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-300 shadow-[0_0_10px_3px_rgba(16,185,129,0.85)]"></span>
+              </span>
+
+              {/* Noise background */}
+              <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen text-[0.55rem] leading-none text-emerald-500/35 whitespace-nowrap overflow-hidden">
+                <div className="animate-[noiseScroll_16s_linear_infinite]">
+                  {'01∷ΔΛ⋄≋  '.repeat(40)}
+                </div>
+              </div>
+
+              {/* Rotating diagnostics text */}
+              <RotatingDiagnostics />
+
+              {/* Glitch sweep overlay */}
+              <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent animate-[glitch_3s_infinite]"></span>
+            </div>
 
             {/* Progress */}
             <div className="flex items-center justify-between mb-6">
@@ -737,10 +782,7 @@ const EngageTerminal: React.FC = () => {
                         type="checkbox"
                         checked={data.consent}
                         onChange={(e) =>
-                          setData({
-                            ...data,
-                            consent: e.target.checked,
-                          })
+                          setData({ ...data, consent: e.target.checked })
                         }
                         className="h-4 w-4 rounded border-emerald-700 bg-slate-900"
                       />
@@ -795,12 +837,11 @@ const EngageTerminal: React.FC = () => {
               <div className="text-slate-200">
                 <div className="text-emerald-300 font-mono mb-2">&gt; Submission received</div>
                 <p className="text-slate-300">
-                  Thanks, {data.name}. We’ll review your details and a Marieb specialist will reach
+                  Thanks, {data.name}. We’ll review your details and reach
                   out via {data.contact}.
                 </p>
                 <p className="text-slate-400 text-sm mt-2">
-                  You’ll also receive a tailored reply based on your company footprint and mission
-                  info.
+                  In the meantime, mentally gather friction points, bottlenecks, missing automation, comprehesive company data
                 </p>
                 <div className="mt-6 flex items-center gap-2">
                   <Button
@@ -858,6 +899,25 @@ export default function MariebDarkSiteV8() {
       <style>{`
         @keyframes hero-blink { 0%,49% { opacity: 1 } 50%,100% { opacity: 0 } }
         .hero-caret-blink { animation: hero-blink 1s steps(1, end) infinite; }
+
+        @keyframes glitch {
+          0%,100% { transform: translateX(0); opacity: 0.2; }
+          20% { transform: translateX(-2px); opacity: 0.4; }
+          40% { transform: translateX(2px); opacity: 0.25; }
+          60% { transform: translateX(-1px); opacity: 0.35; }
+          80% { transform: translateX(1px); opacity: 0.3; }
+        }
+        @keyframes flicker {
+          0%, 100% { opacity: 1; }
+          45% { opacity: 0.8; }
+          47% { opacity: 1; }
+          50% { opacity: 0.9; }
+          55% { opacity: 1; }
+        }
+        @keyframes noiseScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
       `}</style>
 
       {/* Header */}
@@ -964,10 +1024,7 @@ export default function MariebDarkSiteV8() {
             </h2>
             <div className="space-y-4 md:space-y-6">
               {[
-                [
-                  'PoolBrain.ai Launch',
-                  'Our intelligence engine is now powering solutions across multiple industries.',
-                ],
+                ['PoolBrain.ai Launch', 'Our intelligence engine is now powering solutions across multiple industries.'],
                 [
                   'SignalFlow™ Legislation Integration Lobby',
                   'Early-phase strategy design guided by science and industry expertise to modernize legislation for natural swimming pools.',
@@ -1058,9 +1115,7 @@ export default function MariebDarkSiteV8() {
           </header>
           <div className="max-w-5xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
-              <h3 className="text-xl font-semibold text-sky-400 mb-3">
-                Industry Depth First —
-              </h3>
+              <h3 className="text-xl font-semibold text-sky-400 mb-3">Industry Depth First —</h3>
               <p className="text-slate-300 leading-relaxed">
                 Our founder has decades of hands-on operational and field experience. Marieb
                 Consulting was built by professionals who’ve led teams through manufacturing floors,
@@ -1084,7 +1139,7 @@ export default function MariebDarkSiteV8() {
               </h3>
               <p className="text-slate-300 leading-relaxed">
                 Our senior business-intelligence engineer leads a team of data architects and
-                software developers who work directly with emerging technologies from
+                software developers who work directly with emerging technologies and personnel from
                 companies such as OpenAI, Google (Gemini), and xAI (Grok).
               </p>
               <p className="text-slate-300 leading-relaxed mt-3">
@@ -1108,7 +1163,7 @@ export default function MariebDarkSiteV8() {
 
         <PricingSection />
 
-        {/* Engage */}
+        {/* Engage (Updated) */}
         <EngageTerminal />
 
         {/* Footer */}
