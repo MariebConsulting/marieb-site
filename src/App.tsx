@@ -629,11 +629,22 @@ const EngageTerminal: React.FC = () => {
         json = { ok: res.ok, status: res.status };
       }
 
-      if ((json && json.ok) || res.ok) {
+       const success =
+        res.ok ||
+        json?.ok ||
+        json?.status === 'success' ||
+        json?.result === 'success';
+
+      if (success) {
         setSubmitted(true);
       } else {
-        throw new Error(json?.error || `Submit failed (HTTP ${res.status})`);
+        throw new Error(
+          json?.error ||
+          json?.message ||
+          `Submit failed (HTTP ${res.status})`
+        );
       }
+
     } catch (err) {
       console.error('Submission error:', err);
       alert('There was an issue submitting your info. Please try again.');
