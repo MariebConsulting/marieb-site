@@ -1035,7 +1035,7 @@ export default function MariebDarkSiteV8() {
             </h2>
             <div className="space-y-4 md:space-y-6">
               {[
-                ['PoolBrain.ai Launch', 'Our intelligence engine is now powering solutions across multiple industries.'],
+                ['PoolBrain.ai Launch', 'Our intelligence engine is now powering solutions.'],
                 [
                   'SignalFlow™ Legislation Integration Lobby',
                   'Early-phase strategy design guided by science and industry expertise to modernize legislation for natural swimming pools.',
@@ -1113,64 +1113,67 @@ export default function MariebDarkSiteV8() {
 
         <SolutionsSection />
 
-        {/* Behind the Flow */}
-        <section
-          id="behind"
-          className="py-16 md:py-24 px-6 bg-[radial-gradient(1200px_600px_at_50%_0%,#0b1220_0%,transparent_60%)]"
-        >
-          <header className="max-w-4xl mx-auto text-center space-y-4">
-            <span className="inline-block text-xs tracking-[0.18em] text-slate-400 border border-slate-800 rounded-full px-3 py-1">
-              BEHIND THE FLOW
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-100">Behind the Flow</h2>
-          </header>
-          <div className="max-w-5xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div>
-              <h3 className="text-xl font-semibold text-sky-400 mb-3">Industry Depth First —</h3>
-              <p className="text-slate-300 leading-relaxed">
-                Our founder has decades of hands-on operational and field experience. Marieb
-                Consulting was built by professionals who’ve led teams through manufacturing floors,
-                construction sites, and coatings facilities—solving problems that live at the
-                intersection of materials, weather, and people.
-              </p>
-              <p className="text-slate-300 leading-relaxed mt-3">
-                That background brings an uncommon fluency in how real work gets done: from managing
-                production cycles and vendor logistics to coordinating site crews and ensuring safety
-                in the field. We know what happens when timing slips, when materials behave
-                unpredictably, and when technology promises more than it delivers.
-              </p>
-              <p className="text-slate-300 leading-relaxed mt-3">
-                That grounding ensures every system we design is not theoretical—it’s practical,
-                measurable, and built for the rhythm of real operations.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-sky-400 mb-3">
-                Engineering at the Frontier — Driven by Minds That Build the Future
-              </h3>
-              <p className="text-slate-300 leading-relaxed">
-                Our senior business-intelligence engineer leads a team of data architects and
-                software developers who work directly with emerging technologies and personnel from
-                companies such as OpenAI, Google (Gemini), and xAI (Grok).
-              </p>
-              <p className="text-slate-300 leading-relaxed mt-3">
-                Holding a master's degree in business artificial intelligence and a career spent
-                developing enterprise-scale data infrastructure, this leadership combines academic
-                precision with applied engineering experience.
-              </p>
-            </div>
-          </div>
-          <div className="max-w-4xl mx-auto mt-12 text-center">
-            <p className="text-slate-400 leading-relaxed">
-              The team engages early with new releases, explores untested APIs, and translates
-              frontier technology into secure, stable, and dependable workflows for our clients.
-            </p>
-            <p className="text-slate-500 italic mt-3">
-              We don’t chase trends—we implement what’s next before others understand it, making our
-              style harder to follow.
-            </p>
-          </div>
-        </section>
+      {/* Behind the Flow */}
+<section
+  id="behind"
+  className="py-16 md:py-24 px-6 bg-[radial-gradient(1200px_600px_at_50%_0%,#0b1220_0%,transparent_60%)]"
+>
+  <header className="max-w-4xl mx-auto text-center space-y-4">
+    <span className="inline-block text-xs tracking-[0.18em] text-slate-400 border border-slate-800 rounded-full px-3 py-1">
+      BEHIND THE FLOW
+    </span>
+    <h2 className="text-3xl md:text-5xl font-bold text-slate-100">Behind the Flow</h2>
+  </header>
+
+  <div className="max-w-5xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div>
+      <h3 className="text-xl font-semibold text-sky-400 mb-3">Industry Depth First —</h3>
+      <p className="text-slate-300 leading-relaxed">
+        Marieb Consulting was built on field intelligence, not theory. With decades of hands-on
+        experience across manufacturing floors, construction sites, and coatings facilities, our
+        systems are shaped by the realities of materials, timing, and weather—not conference rooms.
+      </p>
+      <p className="text-slate-300 leading-relaxed mt-3">
+        That foundation drives how we approach artificial intelligence today. From production
+        cycles and vendor logistics to job-site coordination, we understand that technology only
+        works when it respects the human and physical conditions it operates in.
+      </p>
+      <p className="text-slate-300 leading-relaxed mt-3">
+        Every workflow we design is pragmatic, measurable, and grounded in the cadence of real
+        operations—not hypothetical dashboards.
+      </p>
+    </div>
+
+    <div>
+      <h3 className="text-xl font-semibold text-sky-400 mb-3">
+        Engineering at the Frontier — Built by Hands That Understand the Field
+      </h3>
+      <p className="text-slate-300 leading-relaxed">
+        Led by a founder certified in <em>Generative AI for Business</em> from the Department of
+        Engineering at the University of Michigan, Marieb develops In-Field AI™ and SignalFlow™
+        systems that merge edge computing, sensor data, and human reinforcement into adaptive
+        operational intelligence.
+      </p>
+      <p className="text-slate-300 leading-relaxed mt-3">
+        This leadership blends technical fluency with lived industry experience—turning abstract AI
+        concepts into systems that perform reliably in unpredictable environments. Our technology is
+        built to handle real-world conditions because it was conceived in them.
+      </p>
+    </div>
+  </div>
+
+  <div className="max-w-4xl mx-auto mt-12 text-center">
+    <p className="text-slate-400 leading-relaxed">
+      We engage early with emerging frameworks, test unproven APIs, and translate frontier
+      innovation into secure, stable, and scalable workflows that give our clients a measurable edge.
+    </p>
+    <p className="text-slate-500 italic mt-3">
+      We don’t chase trends—we operationalize what’s next before others see it coming, making our
+      style harder to follow and impossible to replicate.
+    </p>
+  </div>
+</section>
+
 
         <PricingSection />
 
