@@ -323,7 +323,7 @@ const SolutionsSection: React.FC = () => {
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto">
           We integrate an open ecosystem—Jasper, OpenAI, Gemini, Claude—on top of your systems. A
-          light PoolBrain.ai layer quietly keeps teams aligned with what’s working in the field.
+          light PoolBrain.ai layer quietly keeps teams aligned with what’s working in the factory, field, and office.
         </p>
       </header>
 
@@ -1008,12 +1008,14 @@ export default function MariebDarkSiteV8() {
               className="text-4xl md:text-6xl font-bold mb-6 md:mb-8 leading-tight text-slate-100"
               data-testid="hero-title"
             >
-              Where Pool Industry Expertise Meets AI Evolution
+              Where Industry Expertise Meets Modern Problem-Solving
               <HeroCursor />
             </h1>
             <p className="text-base md:text-lg text-slate-400 mb-8 md:mb-12 max-w-2xl">
-              Marieb designs intelligent systems built for the realities of manufacturing, coatings,
-              and construction—connecting real-world operations to digital intelligence.
+              Marieb specializes in removing operational bottlenecks by pairing emerging AI with
+              deep, practical industry experience from the factory floor and up. We work directly with each client to design
+              custom workflows that improve accuracy, speed, and decision-making—built around real
+              factory, job-site, and office conditions, not theoretical models.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
               <a href="#solutions">
@@ -1035,30 +1037,50 @@ export default function MariebDarkSiteV8() {
             </h2>
             <div className="space-y-4 md:space-y-6">
               {[
-                ['PoolBrain.ai Launch', 'Our intelligence engine is now powering solutions.'],
-                [
-                  'SignalFlow™ Legislation Integration Lobby',
-                  'Early-phase strategy design guided by science and industry expertise to modernize legislation for natural swimming pools.',
-                ],
-                [
-                  'Television Collaboration',
-                  'Worked with a national production company on a feature project involving pool and outdoor living design, contributing both in front of and behind the camera.',
-                ],
-              ].map(([t, d]) => (
-                <Card key={t as string}>
-                  <CardContent>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-slate-600 rounded-full mt-2" />
-                      <div>
-                        <h4 className="font-semibold text-slate-100 mb-1 text-sm md:text-base">
-                          {t}
-                        </h4>
-                        <p className="text-xs md:text-sm text-slate-400">{d}</p>
+                {
+                  t: 'PoolBrain.ai Launch',
+                  d: 'Our intelligence engine is now powering solutions.',
+                  href: 'https://poolbrain.ai',
+                },
+                {
+                  t: 'SignalFlow™ Legislation Integration Lobby',
+                  d: 'Early-phase strategy design guided by science and industry expertise to modernize legislation for natural swimming pools.',
+                },
+                {
+                  t: 'Television Collaboration',
+                  d: 'Worked with a national production company on a feature project involving pool and outdoor living design, contributing both in front of and behind the camera.',
+                },
+              ].map(({ t, d, href }) => {
+                const card = (
+                  <Card className="h-full">
+                    <CardContent>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-slate-600 rounded-full mt-2" />
+                        <div>
+                          <h4 className="font-semibold text-slate-100 mb-1 text-sm md:text-base">
+                            {t}
+                          </h4>
+                          <p className="text-xs md:text-sm text-slate-400">{d}</p>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+
+                return href ? (
+                  <a
+                    key={t}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  <React.Fragment key={t}>{card}</React.Fragment>
+                );
+              })}
             </div>
           </aside>
         </div>
@@ -1129,9 +1151,9 @@ export default function MariebDarkSiteV8() {
     <div>
       <h3 className="text-xl font-semibold text-sky-400 mb-3">Industry Depth First —</h3>
       <p className="text-slate-300 leading-relaxed">
-        Marieb Consulting was built on field intelligence, not theory. With decades of hands-on
+        Marieb Consulting was built on experience, not theory. With decades of hands-on
         experience across manufacturing floors, construction sites, and coatings facilities, our
-        systems are shaped by the realities of materials, timing, and weather—not conference rooms.
+        directions and systems are shaped by the realities of the situation.
       </p>
       <p className="text-slate-300 leading-relaxed mt-3">
         That foundation drives how we approach artificial intelligence today. From production
@@ -1149,14 +1171,15 @@ export default function MariebDarkSiteV8() {
         Engineering at the Frontier — Built by Hands That Understand the Field
       </h3>
       <p className="text-slate-300 leading-relaxed">
-        Led by a founder certified in <em>Generative AI for Business</em> from the Department of
-        Engineering at the University of Michigan, Marieb develops In-Field AI™ and SignalFlow™
-        systems that merge edge computing, sensor data, and human reinforcement into adaptive
-        operational intelligence.
+       Led by founder Dan Epple—educated across dual bachelor’s programs and continually advancing 
+       graduate-level studies in emerging AI technology and organizational systems, including a
+       certification in Generative AI for Business from the University of Michigan’s College of 
+       Engineering — Marieb develops In-Field AI™ and SignalFlow™ systems that merge edge computing, 
+       sensor data, and human reinforcement into adaptive operational information and solutions.
       </p>
       <p className="text-slate-300 leading-relaxed mt-3">
-        This leadership blends technical fluency with lived industry experience—turning abstract AI
-        concepts into systems that perform reliably in unpredictable environments. Our technology is
+        This leadership blends technical fluency with <em>well-lived</em> industry experience—turning data and technology workflows
+        into solutions that perform reliably in unpredictable environments. Our technology is
         built to handle real-world conditions because it was conceived in them.
       </p>
     </div>
