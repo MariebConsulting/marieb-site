@@ -86,7 +86,7 @@ export default function LeadForm() {
         {loading ? 'Sending…' : 'Send'}
       </button>
 
-      {ok === true && <p className="text-green-600">{msg}</p>}
+      {ok === true && <p className="text-slate-600">{msg}</p>}
       {ok === false && <p className="text-red-600">{msg}</p>}
     </form>
   );

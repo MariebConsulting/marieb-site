@@ -2,5 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Accent color for form + terminal elements */
+:root {
+  --accent: 215 32% 55%; /* calm blue-steel */
+}
+
 html, body, #root { height: 100%; }
 body { margin: 0; }
+
+body {
+  background: white;
+  color: #0f172a;
+}
